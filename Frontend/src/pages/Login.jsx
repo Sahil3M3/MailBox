@@ -1,51 +1,42 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const Signup = () => {
+const Login = () => {
 
-  const navigate=useNavigate();
+    const navigate=useNavigate();
 
-  const handleSubmit=async(e)=>{
-    const email=e.get("email");
-    const password =e.get("password");
-    const confirmPassword=e.get("confirmPassword")
+    const handleSubmit=async (e) => {
+        const email=e.get("email");
+        const password=e.get("password");
+        console.log(email,password);
 
-    if (password !== confirmPassword) {
-      alert("Passwords do not match!");
-  }
+        try {
+          const reponse=await fetch("http://localhost:5000/login",{
+            method:"POST",
+            body:JSON.stringify({email,password}),
+            headers:{
+              "Content-Type":"application/json"
+            }
+          })
 
-  try {
-    const response=await fetch("http://localhost:5000/signup",{
-      method:"POST",
-      body:JSON.stringify({
-        email,password
-      }),
-      headers:{
-          "Content-Type": "application/json"
-      }
-    })
-    if(!response.ok)
-      {
-        
-        throw new Error("Something went wrong")
-      }
-      const result=await response.json()
+          const result=await reponse.json();
           console.log(result);
           
-  } catch (error) {
-    alert(error)
-  }
+        } catch (error) {
+          alert(error)
+        }
+        
+        
+    }
 
-
-}
 
 
   return (
     <div className="h-screen w-full bg-gradient-to-br from-[#1A1A40] via-[#3A2E50] to-[#4E3F72] flex items-center justify-center">
-      {/* Signup Card */}
+      {/* Login Card */}
       <div className="relative bg-[#242038] p-10 rounded-2xl shadow-xl w-96 border border-[#3E2C70] transform transition-all duration-500 hover:scale-105">
         <h2 className="text-3xl font-bold text-white text-center mb-6 tracking-wide">
-          Create an Account
+          Welcome Back
         </h2>
 
         <form action={handleSubmit} className="flex flex-col space-y-6">
@@ -54,9 +45,9 @@ const Signup = () => {
               Email
             </label>
             <input
-              type="text"
-              name="email"
+              type="email"
               id="email"
+              name="email"
               className="w-full p-3 border border-[#5A3A95] bg-[#302B4E] text-white placeholder-gray-400 rounded-xl focus:ring-2 focus:ring-[#8F5AE2] outline-none transition-all duration-300"
               placeholder="Enter your email"
             />
@@ -75,36 +66,21 @@ const Signup = () => {
             />
           </div>
 
-          <div>
-            <label htmlFor="confirmPassword" className="block text-white text-lg font-medium mb-2">
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              className="w-full p-3 border border-[#5A3A95] bg-[#302B4E] text-white placeholder-gray-400 rounded-xl focus:ring-2 focus:ring-[#8F5AE2] outline-none transition-all duration-300"
-              placeholder="Confirm your password"
-            />
-          </div>
-
           <button className="w-full bg-gradient-to-r from-[#8F5AE2] to-[#E13EBA] text-white py-3 rounded-xl text-lg font-semibold shadow-md hover:opacity-90 transition-all duration-300 hover:scale-105">
-            Sign Up
+            Login
           </button>
         </form>
-         {/* Switch to Login */}
-         <p onClick={() => navigate("/")} className="text-center  text-gray-400 mt-4 hover:underline cursor-pointer">
-          Already have an account?{" "}
-          <span
-            className="text-[#E13EBA] font-medium hover:underline cursor-pointer"
-            
-          >
-            Login
-          </span>
+
+        {/* Extra Options */}
+        <p className="text-center text-gray-400 mt-4 hover:underline cursor-pointer" onClick={()=>navigate("/signup")} >
+          Don't have an account?{" "}
+          <a href="/signup" className="text-[#E13EBA] font-medium hover:underline">
+            Sign Up
+          </a>
         </p>
       </div>
     </div>
   );
 };
 
-export default Signup;
+export default Login;
