@@ -26,13 +26,13 @@ module.exports.getUserFromDB=async (req) => {
     const {email,password}=req.body;
 
     try {
-        const user=await User.findOne({email})
-        
+        const user=await User.findOne({email});
+
         if(user){
             const isValid= await bcrypt.compare(password,user.password);
             
             if(isValid)
-                {                       
+                       {                       
                            return { status: 200, message: "Login successful", token:generateToken(user._id) };
                         }
                    else

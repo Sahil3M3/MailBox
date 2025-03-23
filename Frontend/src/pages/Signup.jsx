@@ -29,8 +29,7 @@ const Signup = () => {
         
         throw new Error("Something went wrong")
       }
-      const result=await response.json()
-          console.log(result);
+       navigate("/")
           
   } catch (error) {
     alert(error)

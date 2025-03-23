@@ -8,7 +8,6 @@ const Login = () => {
     const handleSubmit=async (e) => {
         const email=e.get("email");
         const password=e.get("password");
-        console.log(email,password);
 
         try {
           const reponse=await fetch("http://localhost:5000/login",{
@@ -19,8 +18,11 @@ const Login = () => {
             }
           })
 
-          const result=await reponse.json();
-          console.log(result);
+          const {token}=await reponse.json();
+        
+      localStorage.setItem("token",token);  
+
+          navigate("/inbox");
           
         } catch (error) {
           alert(error)
