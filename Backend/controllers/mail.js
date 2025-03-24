@@ -7,3 +7,9 @@ module.exports.addMail=async (req,res,next) => {
 
     
 }
+module.exports.getMail=async (req,res,next) => {
+    
+    const result=await mailService.getMailFromDB(req);
+    return res.status(result.status).json({ data: result.data, error: result.error });    
+    
+}

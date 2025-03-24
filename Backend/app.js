@@ -8,12 +8,12 @@ const app=express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
-
+require('dotenv').config();
 app.use("/",userRoutes);
 app.use("/mail",mailRoutes);
 
 
-mongoose.connect("mongodb+srv://sahil3m3:manager@cluster0.l9lq9.mongodb.net/mailbox?retryWrites=true&w=majority&appName=Cluster0")
+mongoose.connect(process.env.DB_KEY)
 .then(()=>{
     app.listen(5000,()=>{
         console.log("Database is connected and listing on 5000");   

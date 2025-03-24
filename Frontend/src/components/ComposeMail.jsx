@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Editor, EditorState, RichUtils, convertToRaw } from "draft-js";
 import "draft-js/dist/Draft.css";
-import axios from "axios"
 
 const ComposeModal = ({ onClose }) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -20,11 +19,7 @@ const ComposeModal = ({ onClose }) => {
     const plainText = editorState.getCurrentContent().getPlainText();
 const token=localStorage.getItem("token")
 
-const mail=JSON.stringify({receiver,subject,message:plainText})
-
-
   try {
-    // const response=await axios.post("http://localhost:5000/mail/add",mail,{headers:{"Authorization":token}})
 
     const response = await fetch("http://localhost:5000/mail/add", {
       method: "POST",
@@ -35,10 +30,7 @@ const mail=JSON.stringify({receiver,subject,message:plainText})
       
   });
 
-  const result=await response.json();
-  console.log(result);
-  
-  
+onClose(); 
   
 } catch (error) {
   console.log(error);

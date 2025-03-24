@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import { FaInbox, FaStar, FaPaperPlane, FaTrash, FaEdit } from "react-icons/fa";
 import ComposeMail from "./ComposeMail";
@@ -7,6 +7,31 @@ import ComposeMail from "./ComposeMail";
 const Mailbox = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [mail,setMail]=useState([]);
+
+
+  const fetchData=async () => {
+    try {
+      const token=localStorage.getItem("token");
+      const response=await fetch("http://localhost:5000/mail/get",{
+        method:"GET",
+        headers:{
+          "Authorization":token
+        }
+      })
+      const data=await response.json();
+      console.log(data);
+      
+    } catch (error) {
+      console.log(error);
+    }
+
+    
+  }
+  useEffect(()=>{
+
+    fetchData()
+  },[])
 
   return (
     <div className="h-screen flex flex-col">
@@ -40,7 +65,7 @@ const Mailbox = () => {
           <h2 className="text-xl font-semibold mb-4">Inbox</h2>
           <div className="border rounded-lg overflow-hidden shadow-md">
             {/* Sample Mails */}
-            {["Welcome to your Mail", "Job Opportunity", "Meeting Reminder"].map((mail, index) => (
+            { mail.length>  ["Welcome to your Mail", "Job Opportunity", "Meeting Reminder"].map((mail, index) => (
               <div
                 key={index}
                 className="p-3 border-b hover:bg-gray-100 cursor-pointer transition"
@@ -48,7 +73,7 @@ const Mailbox = () => {
                 <h3 className="text-lg font-medium">{mail}</h3>
                 <p className="text-gray-500 text-sm">Sender Name - 5 mins ago</p>
               </div>
-            ))}
+            )) }
           </div>
         </main>
       </div>

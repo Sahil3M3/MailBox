@@ -19,3 +19,23 @@ module.exports.addMailToDB=async (req) => {
   }
     
 }
+
+module.exports.getMailFromDB=async (req) => {
+
+  try {
+    const result= await Mail.find({to:req.user.email});
+    
+    let data=result.map(m=>{
+      return {_id,from,subject,message}=m;
+
+    })
+    
+    return {status:200,data:data}
+  } catch (error) {
+    return {status:400,error:error}
+    
+  }
+  
+  
+  
+}
