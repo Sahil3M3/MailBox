@@ -21,7 +21,11 @@ const mailSchema=mongoose.Schema({
         type:String,
         trim :true,
         required:true,
+      },
+      read:{
+        type:Boolean,
       }
+      
 })
 
 const Mail=mongoose.model("Mail",mailSchema);

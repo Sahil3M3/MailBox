@@ -3,6 +3,9 @@ import Signup from './pages/Signup'
 import Login from './pages/Login'
 import Layout from './components/Mailbox'
 import Mailbox from './components/Mailbox'
+import Inbox from './pages/Inbox'
+import SentMail from './pages/SentMail'
+import Message from './pages/Message'
 
 function App() {
 
@@ -13,13 +16,23 @@ function App() {
             <Route index element={<Login />} />
             <Route path='signup' element={<Signup/>}/>
             </Route>
-            <Route  path='/inbox'>
-            <Route index element={<Mailbox />} />
-
-            </Route>
+            <Route path='/inbox' element={<Mailbox />}>
+  <Route index element={<Inbox />} />
+  <Route path='sent' element={<SentMail />} />
+  <Route path=':id' element={<Message />} />   {/* /inbox/:id */}
+  <Route path='sent/:id' element={<Message />} />   {/* /inbox/sent/:id */}
+</Route>
       </Routes>  
   </BrowserRouter>
   )
 }
+
+{/* <Route path='/inbox' element={<Mailbox />}>
+  <Route index element={<Inbox />} />
+  <Route path='sent' element={<SentMail />} />
+  <Route path=':id' element={<Message />} />   
+  <Route path='sent/:id' element={<Message />} />   
+</Route> */}
+
 
 export default App

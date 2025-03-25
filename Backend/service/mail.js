@@ -1,4 +1,5 @@
 const Mail=require("../models/Mail");
+const mongoose =require("mongoose")
 
 module.exports.addMailToDB=async (req) => {
    
@@ -6,7 +7,7 @@ module.exports.addMailToDB=async (req) => {
 
     try {
 
-      const mail= await Mail({from:req.user.email,subject,to:receiver,message})
+      const mail= await Mail({from:req.user.email,subject,to:receiver,message,read:false})
          await mail.save();
 
       return {status:201,message:"Mail is Send"};       
@@ -20,13 +21,30 @@ module.exports.addMailToDB=async (req) => {
     
 }
 
-module.exports.getMailFromDB=async (req) => {
+module.exports.getMailsFromDB=async (req) => {
 
   try {
     const result= await Mail.find({to:req.user.email});
     
     let data=result.map(m=>{
-      return {_id,from,subject,message}=m;
+      return {_id,from,subject,message,read}=m;
+    })
+    
+    return {status:200,data:data}
+  } catch (error) {
+    return {status:400,error:error}
+    
+  }
+  
+}
+
+module.exports.getSentMailFromDB=async (req) => {
+  
+  try {
+    const result= await Mail.find({from:req.user.email});
+    
+    let data=result.map(m=>{
+      return {_id,to,subject,message}=m;
 
     })
     
@@ -36,6 +54,30 @@ module.exports.getMailFromDB=async (req) => {
     
   }
   
-  
+}
+module.exports.getMailFromDB=async (req) => {
+
+  const {id}=req.params
+ const DB_id= new mongoose.Types.ObjectId(id);
+ 
+ const {isSentTrue}=req.body;
+ try {
+   
+   const result= await Mail.findById(DB_id);       
+   let data=({_id,to,from,subject,message,read}=result);
+   
+   if(isSentTrue){
+    result.read=true;
+    result.save();
+   }
+       console.log(result);
+       
+    return {status:200,data:data}
+  } catch (error) {
+    console.log(error);
+    
+    return {status:400,error:error}
+    
+  }
   
 }

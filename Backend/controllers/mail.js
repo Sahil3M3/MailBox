@@ -7,6 +7,18 @@ module.exports.addMail=async (req,res,next) => {
 
     
 }
+module.exports.getMails=async (req,res,next) => {
+    
+    const result=await mailService.getMailsFromDB(req);
+    return res.status(result.status).json({ data: result.data, error: result.error });    
+    
+}
+module.exports.getSentMail=async (req,res,next) => {
+    
+    const result=await mailService.getSentMailFromDB(req);
+    return res.status(result.status).json({ data: result.data, error: result.error });    
+    
+}
 module.exports.getMail=async (req,res,next) => {
     
     const result=await mailService.getMailFromDB(req);
