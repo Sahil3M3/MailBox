@@ -70,7 +70,6 @@ module.exports.getMailFromDB=async (req) => {
     result.read=true;
     result.save();
    }
-       console.log(result);
        
     return {status:200,data:data}
   } catch (error) {
@@ -79,5 +78,27 @@ module.exports.getMailFromDB=async (req) => {
     return {status:400,error:error}
     
   }
+  
+}
+
+module.exports.deleteMailFromDB=async (req) => {
+  const {id}=req.params
+  const DB_id= new mongoose.Types.ObjectId(id);
+  
+  try {
+    
+    const result= await Mail.deleteOne({_id:DB_id});       
+     
+    if(result.deletedCount>0)        
+     return {status:200,message:"Email is Deleted"}
+    else
+    throw new Error("Something went Wrong");
+   } catch (error) {
+     console.log(error);
+     
+     return {status:400,error:error}
+     
+   }
+   
   
 }

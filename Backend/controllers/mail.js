@@ -25,3 +25,9 @@ module.exports.getMail=async (req,res,next) => {
     return res.status(result.status).json({ data: result.data, error: result.error });    
     
 }
+module.exports.deleteMail=async (req,res,next) => {
+    
+    const result=await mailService.deleteMailFromDB(req);
+    return res.status(result.status).json({ message: result.message, error: result.error });    
+    
+}
