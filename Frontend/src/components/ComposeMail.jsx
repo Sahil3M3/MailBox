@@ -5,6 +5,7 @@ import "draft-js/dist/Draft.css";
 const ComposeModal = ({ onClose }) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
+
   const handleOutsideClick = (e) => {
     if (e.target.id === "modal-overlay") {
       onClose();
@@ -30,7 +31,7 @@ const token=localStorage.getItem("token")
       
   });
 
-onClose(); 
+        onClose(); 
   
 } catch (error) {
   console.log(error);

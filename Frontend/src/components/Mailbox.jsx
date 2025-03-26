@@ -2,12 +2,23 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import { FaInbox, FaStar, FaPaperPlane, FaTrash, FaEdit } from "react-icons/fa";
 import ComposeMail from "./ComposeMail";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 
 
 const Mailbox = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const auth=useSelector(state=>state.auth.token);
+
+  const navigation=useNavigate();
+                            
+       useEffect(()=>{
+        if(!auth){
+         navigation("/")
+   }
+       },[auth,navigation])
   
   return (
     <div className="h-screen flex flex-col">

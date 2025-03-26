@@ -1,8 +1,10 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { authAction } from "../store/auth";
 
 const Login = () => {
-
+    const dispatch=useDispatch();
     const navigate=useNavigate();
 
     const handleSubmit=async (e) => {
@@ -18,11 +20,18 @@ const Login = () => {
             }
           })
 
-          const {token}=await reponse.json();
-        
-      localStorage.setItem("token",token);  
+          if(reponse.ok)
+            navigate("/inbox");
+          else{
+           const message=await reponse.json()
+           console.log(message.message);
+           
+            throw new Error(message.message)
+          }
 
-          navigate("/inbox");
+          const {token}=await reponse.json();
+         await dispatch(authAction.login(token))
+         navigate("/inbox")
           
         } catch (error) {
           alert(error)

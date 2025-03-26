@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const Inbox = () => {
   const [mail, setMail] = useState([]);
+  const token = useSelector(state=>state.auth.token);
 
   const fetchData = async () => {
     try {
-      const token = localStorage.getItem("token");
       const response = await fetch("http://localhost:5000/mail/get", {
         method: "GET",
         headers: {
@@ -50,7 +51,7 @@ const Inbox = () => {
           <div key={mail._id} className="p-3 border-b hover:bg-gray-100 cursor-pointer transition flex items-center justify-between">
             <Link to={`${mail._id}`} className="flex items-center flex-grow">
               
-              {/* ✅ Show blue dot if mail is unread */}
+             
               {!mail.read && (
                 <span className="w-3 h-3 bg-blue-500 rounded-full mr-2"></span>
               )}

@@ -17,22 +17,17 @@ function App() {
             <Route path='signup' element={<Signup/>}/>
             </Route>
             <Route path='/inbox' element={<Mailbox />}>
-  <Route index element={<Inbox />} />
-  <Route path='sent' element={<SentMail />} />
-  <Route path=':id' element={<Message />} />   {/* /inbox/:id */}
-  <Route path='sent/:id' element={<Message />} />   {/* /inbox/sent/:id */}
-</Route>
+                <Route index element={<Inbox />} />
+                <Route path='sent' element={<SentMail />} />
+                <Route path=':id' element={<Message />} />   
+                <Route path='sent/:id' element={<Message />} /> 
+            </Route>
       </Routes>  
   </BrowserRouter>
   )
 }
 
-{/* <Route path='/inbox' element={<Mailbox />}>
-  <Route index element={<Inbox />} />
-  <Route path='sent' element={<SentMail />} />
-  <Route path=':id' element={<Message />} />   
-  <Route path='sent/:id' element={<Message />} />   
-</Route> */}
+
 
 
 export default App
