@@ -96,7 +96,6 @@ const token=localStorage.getItem("token")
             </button>
           </div>
 
-          {/* Draft.js Editor */}
          <div className="border border-gray-300 rounded-md p-2 min-h-[150px]">
             <Editor  editorState={editorState} onChange={setEditorState} />
           </div> 
