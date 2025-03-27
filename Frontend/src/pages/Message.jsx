@@ -18,7 +18,7 @@ const MessageDetails = () => {
       try {
         const res = await axios.put(
           `http://localhost:5000/mail/messages/${id}`, 
-          { isSentTrue }, // Request body
+          { isSentTrue }, 
           {
             headers: {
               Authorization: token,
