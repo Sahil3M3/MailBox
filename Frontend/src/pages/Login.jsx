@@ -44,15 +44,14 @@ const Login = () => {
 
   return (
     <div className="h-screen w-full bg-gradient-to-br from-[#1A1A40] via-[#3A2E50] to-[#4E3F72] flex items-center justify-center">
-      {/* Login Card */}
-      <div className="relative bg-[#242038] p-10 rounded-2xl shadow-xl w-96 border border-[#3E2C70] transform transition-all duration-500 hover:scale-105">
-        <h2 className="text-3xl font-bold text-white text-center mb-6 tracking-wide">
+      <div className=" bg-[#242038] p-10 rounded-2xl shadow-xl w-96 border border-[#3E2C70] transform transition-all  hover:scale-105">
+        <h2 className="text-3xl font-bold text-white text-center mb-6 ">
           Welcome Back
         </h2>
 
         <form action={handleSubmit} className="flex flex-col space-y-6">
           <div>
-            <label htmlFor="email" className="block text-white text-lg font-medium mb-2">
+            <label htmlFor="email" className=" text-white text-lg font-medium block mb-2">
               Email
             </label>
             <input
@@ -82,7 +81,6 @@ const Login = () => {
           </button>
         </form>
 
-        {/* Extra Options */}
         <p className="text-center text-gray-400 mt-4 hover:underline cursor-pointer" onClick={()=>navigate("/signup")} >
           Don't have an account?{" "}
           <a href="/signup" className="text-[#E13EBA] font-medium hover:underline">

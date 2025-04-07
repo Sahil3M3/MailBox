@@ -26,6 +26,7 @@ const Inbox = () => {
     }
   }, [mails, dispatch]);
 
+  
   useEffect(() => {
     const interval = setInterval(() => {
       refetch();

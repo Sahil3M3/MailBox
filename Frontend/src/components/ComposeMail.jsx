@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Editor, EditorState, RichUtils, convertToRaw } from "draft-js";
+import { Editor, EditorState, RichUtils } from "draft-js";
 import "draft-js/dist/Draft.css";
 
 const ComposeModal = ({ onClose }) => {
@@ -27,18 +27,13 @@ const token=localStorage.getItem("token")
       headers: { "Content-Type": "application/json","Authorization":token },
       body: JSON.stringify({ 
         receiver,subject,message:plainText
-      }),
-      
+      }), 
   });
-
         onClose(); 
   
 } catch (error) {
-  console.log(error);
-  
-}
-
-    
+  console.log(error); 
+}  
     
   }
 
