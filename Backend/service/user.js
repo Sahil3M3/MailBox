@@ -21,7 +21,6 @@ module.exports.addUserToDB=async (req) => {
         return { status: 409, error: e.message };
     }
 }
-//sahil1@gmail.com
 module.exports.getUserFromDB=async (req) => {
     const {email,password}=req.body;
 
@@ -54,6 +53,6 @@ module.exports.getUserFromDB=async (req) => {
 }
 
 function generateToken(_id){
-    const key = "sahil";
+    const key = process.env.JWT_SECRET;
     return jwt.sign({ userId: _id }, key);
 }
